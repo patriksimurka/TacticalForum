@@ -6,19 +6,24 @@ app = Flask(__name__)
 app.secret_key = 'pes'
 
 
-@app.route('/')
+@app.route('/', methods=["POST", "GET"])
 def home():
 	if "user" in session:
 		user = '<i>Signed in as ' + session['user'] + '</i>'
+		username = session['user']
 		icon = "glyphicon glyphicon-user"
 		classs = 'hidden'
+
+		if request.method == "POST":
+			content = request.form['ct']
+			db.post(username, content)
 
 	else:
 		user = 'Login'
 		icon = 'glyphicon glyphicon-log-in'
 		classs = ''
 
-	return render_template('index.html', content='TacticalForum', user=user, icon=icon, classs=classs)
+	return render_template('index.html', content='TacticalForum', user=user, icon=icon, classs=classs, posts=db.load_feed())
 
 
 @app.route('/user')

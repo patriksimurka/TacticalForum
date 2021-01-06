@@ -2,7 +2,25 @@
 {% block title %}Home page{% endblock %}
 {% block content %}
     <h1>Welcome to {{content}}</h1>
-    {% for i in range(10) %}
-    	<p>{{i}}</p>
+    <p> {{user}} </p>
+    {% if user == 'Login' %}
+    	{% block logout %}{% endblock %}
+
+	{% else %}
+		{{ super() }}
+		
+		<form action="#" method="post">
+			<p>Content:</p>
+			<p><input type="text" name="ct" /></p>
+			<p><input type="submit" value="post"/></p>
+		</form>
+	{% endif %}
+
+   	{% for i in posts %}
+    	<p>{{i[0]}}:</p>
+    	<i>{{i[2]}}</i>
+    	<p style="float:right">{{i[1][:-7]}}</p>
+    	<hr>
     {% endfor %}
+	
 {% endblock %}

@@ -21,7 +21,9 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="{{classs}}"><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
             <li><a href="/login"><span class='{{ icon }}'></span> {{ user|safe }} </a></li>
+            {% block logout %}
             <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            {% endblock %}
           </ul>
         </div>
       </nav>

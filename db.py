@@ -1,4 +1,5 @@
 import sqlite3
+import datetime
 
 def login(username, password):
 
@@ -21,6 +22,7 @@ def login(username, password):
 	conn.commit()
 	conn.close()
 
+
 def register(username, password):
 
 	conn = sqlite3.connect('db.sqlite')
@@ -37,3 +39,23 @@ def register(username, password):
 		conn.commit()
 		conn.close()
 		return True
+
+
+def post(username, content=''):
+	conn = sqlite3.connect('db.sqlite')
+	cur = conn.cursor()
+	cur.execute('CREATE TABLE IF NOT EXISTS posts (username VARCHAR, dt TEXT, content TEXT)')
+	cur.execute('INSERT INTO posts (username, dt, content) values (?, ?, ?)', (username, datetime.datetime.now(), content))
+	conn.commit()
+	conn.close()
+
+
+def load_feed():
+	conn = sqlite3.connect('db.sqlite')
+	cur = conn.cursor()
+	cur.execute('CREATE TABLE IF NOT EXISTS posts (username VARCHAR, dt TEXT, content TEXT)')
+	cur.execute("SELECT username, dt, content FROM posts WHERE 1=1")
+	data = cur.fetchall()
+	conn.close()
+	print(data)
+	return data
