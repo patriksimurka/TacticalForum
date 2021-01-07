@@ -2,7 +2,6 @@
 {% block title %}Home page{% endblock %}
 {% block content %}
     <h1>Welcome to {{content}}</h1>
-    <p> {{user}} </p>
     {% if user == 'Login' %}
     	{% block logout %}{% endblock %}
 
