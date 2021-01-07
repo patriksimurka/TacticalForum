@@ -17,14 +17,13 @@
 	{% endif %}
 
    	{% for i in posts %}
+
     	<p>{{i[0]}}:</p>
-    	<i>{{i[2]}}</i>
+    	<i class='post'>{{i[2]}}</i>
     	<p style="float:right">{{i[1][:-7]}}</p>
     	<hr>
+			
     {% endfor %}
 	
 {% endblock %}	
 
-<script>
-	document.getElementById("logout").style.display = "none";
-</script>
