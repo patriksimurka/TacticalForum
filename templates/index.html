@@ -3,11 +3,12 @@
 {% block content %}
     <h1>Welcome to {{content}}</h1>
     {% if user == 'Login' %}
-    	{% block logout %}{% endblock %}
+    	<script>
+			document.getElementById("logout").style.display = "none";
+		</script>
 
 	{% else %}
-		{{ super() }}
-		
+
 		<form action="#" method="post">
 			<p>Content:</p>
 			<p><input type="text" name="ct" /></p>
@@ -22,4 +23,8 @@
     	<hr>
     {% endfor %}
 	
-{% endblock %}
+{% endblock %}	
+
+<script>
+	document.getElementById("logout").style.display = "none";
+</script>
