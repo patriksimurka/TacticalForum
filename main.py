@@ -23,7 +23,7 @@ def home():
 		icon = 'glyphicon glyphicon-log-in'
 		classs = ''
 
-	return render_template('index.html', content='TacticalForum', user=user, icon=icon, classs=classs, posts=db.load_feed())
+	return render_template('index.html', content='TacticalForum', user=user, username=username, icon=icon, classs=classs, posts=db.load_feed())
 
 
 @app.route('/user')

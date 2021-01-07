@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Home page{% endblock %}
+{% block title %}Home page - {{ username }} {% endblock %}
 {% block content %}
     <h1>Welcome to {{content}}</h1>
     {% if user == 'Login' %}
