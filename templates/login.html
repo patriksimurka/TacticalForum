@@ -13,3 +13,28 @@
 </form>
 
 {% endblock %}
+{% block scripts%}
+
+<script>
+
+var m = document.getElementsByClassName("alert-danger");
+
+
+      
+  if ({{wp}} === true) {
+    for (var i=0; i<m.length; i++) {
+        m[i].classList.remove('hide');
+  }
+}
+
+var m = document.getElementsByClassName("alert-info");
+
+  if ({{rg}} === true) {
+    for (var i=0; i<m.length; i++) {
+        m[i].classList.remove('hide');
+  }
+}
+
+</script>
+
+{% endblock %}

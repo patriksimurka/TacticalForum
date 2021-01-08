@@ -22,6 +22,7 @@ def home():
 		user = 'Login'
 		icon = 'glyphicon glyphicon-log-in'
 		classs = ''
+		username = 'not signed in'
 
 	return render_template('index.html', content='TacticalForum', user=user, username=username, icon=icon, classs=classs, posts=db.load_feed())
 
@@ -59,16 +60,16 @@ def login():
 			return redirect(url_for("user"))
 
 		elif db.login(username, password) == 'wp':
-			return "Wrong password"
+			return render_template("login.html", user=user, icon=icon, wp='true', rg='false')
 
 		else:
-			return "Please register"
+			return render_template("login.html", user=user, icon=icon, wp='false', rg='true')
 	
 	else:
 		if "user" in session:
 			return redirect(url_for("user"))
 
-		return render_template("login.html", user=user, icon=icon)
+		return render_template("login.html", user=user, icon=icon, wp='false', rg='false')
 
 
 @app.route("/register", methods=["POST", "GET"])
