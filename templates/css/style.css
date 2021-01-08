@@ -1,9 +1,0 @@
-.hidden {
-	display: none;
-}
-
-.post {
-	width:100px !important;
-	word-wrap:break-word !important; 
-	display:inline-block !important;
-}

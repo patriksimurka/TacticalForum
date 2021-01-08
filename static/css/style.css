@@ -1,0 +1,14 @@
+.hidden {
+	display: none;
+}
+
+
+.post {
+	width:100%;
+	word-wrap:break-word; 
+}
+
+textarea {
+	resize: none;
+}
+
