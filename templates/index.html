@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Home page - {{ username }} {% endblock %}
-{% block content %}
+{% block upper %}
     <h1>Welcome to {{content}}</h1>
     {% if user == 'Login' %}
     	<script>
@@ -17,14 +17,24 @@
 
 	{% endif %}
 
-   	{% for i in posts[::-1] %}
+{% endblock %}
 
-    	<p>{{i[0]}}:</p>
-    	<i class='post'>{{i[2]}}</i>
-    	<p style="float:right">{{i[1][:-7]}}</p>
-    	<hr>
-			
+{% block content%}
+
+   	{% for i in posts[::-1] %}
+   		<div class="row">
+
+	   		<div class="col-7 post">
+		    	<p>{{i[0]}}:</p>
+		    	<i class='post'>{{i[2]}}</i>
+		    	<p style="float:right">{{i[1][:-7]}}</p>
+		    	<hr>
+		    </div>
+		</div>
+				
     {% endfor %}
 	
 {% endblock %}	
+
+
 

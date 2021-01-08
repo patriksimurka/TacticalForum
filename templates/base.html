@@ -64,10 +64,16 @@
 
 
     <div class="container">
-        <div class="row">
-          <div class="post col-10">
-            {% block content%}{% endblock %}
-          </div>
+        <div class='row'>
+           <div class="col-10">
+              {% block upper %}{% endblock %}
+            </div>
+        </div>
+            
+        {% block content %}{% endblock %}
+
+              
+        
         </div>
       </div>
 
