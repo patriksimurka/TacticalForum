@@ -1,5 +1,6 @@
 from flask import Flask, redirect, url_for, render_template, request, session
 import db
+import btc
 
 app = Flask(__name__)
 
@@ -24,7 +25,7 @@ def home():
 		classs = ''
 		username = 'not signed in'
 
-	return render_template('index.html', content='TacticalForum', user=user, username=username, icon=icon, classs=classs, posts=db.load_feed())
+	return render_template('index.html', content='TacticalForum', user=user, username=username, icon=icon, classs=classs, posts=db.load_feed(), btc_price=btc.get_price())
 
 
 @app.route('/user')
@@ -34,7 +35,7 @@ def user():
 		icon = "glyphicon glyphicon-user"
 		menofka = session['user']
 		classs = 'hidden'
-		return render_template('logged_in.html', user=user, menofka=menofka, icon=icon, classs=classs)
+		return render_template('logged_in.html', user=user, menofka=menofka, icon=icon, classs=classs, btc_price=btc.get_price())
 
 	else:
 		return redirect(url_for('login'))
@@ -60,16 +61,16 @@ def login():
 			return redirect(url_for("user"))
 
 		elif db.login(username, password) == 'wp':
-			return render_template("login.html", user=user, icon=icon, wp='true', rg='false')
+			return render_template("login.html", user=user, icon=icon, wp='true', rg='false', btc_price=btc.get_price())
 
 		else:
-			return render_template("login.html", user=user, icon=icon, wp='false', rg='true')
+			return render_template("login.html", user=user, icon=icon, wp='false', rg='true', btc_price=btc.get_price())
 	
 	else:
 		if "user" in session:
 			return redirect(url_for("user"))
 
-		return render_template("login.html", user=user, icon=icon, wp='false', rg='false')
+		return render_template("login.html", user=user, icon=icon, wp='false', rg='false', btc_price=btc.get_price())
 
 
 @app.route("/register", methods=["POST", "GET"])
@@ -90,7 +91,7 @@ def register():
 		if "user" in session:
 			return redirect(url_for("user"))
 
-		return render_template("register.html", user=user, icon=icon)
+		return render_template("register.html", user=user, icon=icon, btc_price=btc.get_price())
 
 
 @app.route('/logout')
