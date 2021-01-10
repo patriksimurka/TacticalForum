@@ -1,6 +1,8 @@
 from flask import Flask, redirect, url_for, render_template, request, session
 import db
 import btc
+import requests
+import json
 
 app = Flask(__name__)
 
@@ -25,7 +27,7 @@ def home():
 		classs = ''
 		username = 'not signed in'
 
-	return render_template('index.html', content='TacticalForum', user=user, username=username, icon=icon, classs=classs, posts=db.load_feed(), btc_price=btc.get_price())
+	return render_template('index.html', content='TacticalForum', user=user, username=username, icon=icon, classs=classs, posts=db.load_feed())
 
 
 @app.route('/user')
@@ -35,7 +37,7 @@ def user():
 		icon = "glyphicon glyphicon-user"
 		menofka = session['user']
 		classs = 'hidden'
-		return render_template('logged_in.html', user=user, menofka=menofka, icon=icon, classs=classs, btc_price=btc.get_price())
+		return render_template('logged_in.html', user=user, menofka=menofka, icon=icon, classs=classs)
 
 	else:
 		return redirect(url_for('login'))
@@ -61,16 +63,16 @@ def login():
 			return redirect(url_for("user"))
 
 		elif db.login(username, password) == 'wp':
-			return render_template("login.html", user=user, icon=icon, wp='true', rg='false', btc_price=btc.get_price())
+			return render_template("login.html", user=user, icon=icon, wp='true', rg='false')
 
 		else:
-			return render_template("login.html", user=user, icon=icon, wp='false', rg='true', btc_price=btc.get_price())
+			return render_template("login.html", user=user, icon=icon, wp='false', rg='true')
 	
 	else:
 		if "user" in session:
 			return redirect(url_for("user"))
 
-		return render_template("login.html", user=user, icon=icon, wp='false', rg='false', btc_price=btc.get_price())
+		return render_template("login.html", user=user, icon=icon, wp='false', rg='false')
 
 
 @app.route("/register", methods=["POST", "GET"])
@@ -91,13 +93,21 @@ def register():
 		if "user" in session:
 			return redirect(url_for("user"))
 
-		return render_template("register.html", user=user, icon=icon, btc_price=btc.get_price())
+		return render_template("register.html", user=user, icon=icon)
 
 
 @app.route('/logout')
 def logout():
 	session.pop('user', None)
 	return redirect(url_for('login'))
+
+
+@app.route('/btc_price/<which>')
+def get_price(which):
+	r = requests.get(f'https://api.kraken.com/0/public/Ticker?pair={which}EUR').json()['result'][f'X{which}ZEUR']['a'][0]
+	r2 = requests.get(f'https://api.kraken.com/0/public/Ticker?pair={which}USD').json()['result'][f'X{which}ZUSD']['a'][0]
+	result = [r, r2]
+	return json.dumps(result)
 
 
 if __name__ == "__main__":
