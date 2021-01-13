@@ -3,10 +3,12 @@ import db
 import btc
 import requests
 import json
+from flask_socketio import SocketIO
+
 
 app = Flask(__name__)
-
 app.secret_key = 'pes'
+socketio = SocketIO(app)
 
 
 @app.route('/', methods=["POST", "GET"])
@@ -116,4 +118,4 @@ def chatroom():
 
 
 if __name__ == "__main__":
-	app.run()
+	socketio.run(app)
