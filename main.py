@@ -119,7 +119,7 @@ def chatroom():
 
 @socketio.on('message')
 def handle_message(data):
-    print('received message: ' + data)
+	print('received message: ' + data['data'])
 
 
 if __name__ == "__main__":
