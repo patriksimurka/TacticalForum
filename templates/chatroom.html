@@ -5,3 +5,17 @@
 <textarea cols="40", rows="1" style='display:block;margin:auto'></textarea>
 {% endblock %}
 
+{% block scripts %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"></script>
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function(){
+	    var socket = io()
+	    socket.on('connect', function() {
+	    	console.log('connected')
+	        socket.emit('message', {data: 'I\'m connected!'});
+	    });
+	});
+    
+</script>
+{% endblock %}
+
