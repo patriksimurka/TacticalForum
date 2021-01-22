@@ -3,7 +3,7 @@ if ( window.history.replaceState ) {
 }
 
 setTimeout(function(){
-	for (el of [m, n]){
+	for (el of [m, n]){ //there has to be a better way
 		for (var i=0; i<el.length; i++) {
 		  el[i].classList.add('hide');
 		}
