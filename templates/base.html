@@ -10,22 +10,22 @@
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
-          <nav class="navbar navbar-inverse">
+      <nav class="navbar navbar-inverse">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="/">TacticalForum</a>
+            <a class="navbar-brand" href="/" id='home'>TacticalForum</a>
           </div>
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="#">Hot</a></li>
-            <li><a href="/chatroom">Chatroom</a></li>
+            <li class="active"><a href="/" id='home'>Home</a></li>
+            <li><a href="#" id='hot'>Hot</a></li>
+            <li><a href="/chatroom" id='chatroom'>Chatroom</a></li>
             <li><a href="#" id='btc'></a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li class="{{classs}}"><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="/login"><span class='{{ icon }}'></span> {{ user|safe }} </a></li>
+            <li class="{{classs}}"><a href="/register" id='signup'><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="/login"><span class='{{ icon }}' id='login'></span> {{ user|safe }} </a></li>
             {% block logout %}
-            <li id='logout'><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            <li id='logout'><a href="/logout" id='logout'><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
             {% endblock %}
           </ul>
         </div>
@@ -95,11 +95,11 @@
     {% block scripts %}{% endblock%}
 
     <script type=text/javascript>
+        set_active();
 
         function get_btc(which) {
             $.getJSON('/btc_price/'+which,
                 function(data) {
-                  console.log(data);
                   document.getElementById('btc').text = data[0]+'('+data[1]+')';
             });
             return true;
