@@ -132,5 +132,6 @@ def handle_message(data):
 	socketio.emit('chat message', data)
 
 
+
 if __name__ == "__main__":
 	socketio.run(app)
