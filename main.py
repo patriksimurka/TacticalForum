@@ -89,7 +89,7 @@ def register():
 			return redirect(url_for("user"))
 
 		else:
-			print('Already registered, please log in.')
+			return('Already registered, please log in.')
 
 	else:
 		if "user" in session:
@@ -114,7 +114,17 @@ def get_price(which):
 
 @app.route('/chatroom/')
 def chatroom():
-	return render_template('chatroom.html')
+	if "user" in session:
+		user = '<i>Signed in as ' + session['user'] + '</i>'
+		username = session['user']
+		icon = "glyphicon glyphicon-user"
+		classs = 'hidden'
+	else:
+		user = 'Login'
+		icon = 'glyphicon glyphicon-log-in'
+		classs = ''
+		username = 'not signed in'
+	return render_template('chatroom.html', content='TacticalForum', user=user, username=username, icon=icon, classs=classs)
 
 
 @socketio.on('chat message')

@@ -13,7 +13,6 @@ def login(username, password):
 		print(f'There is no user {username}, please register.')
 	else:
 		if data[0][1] != password:
-			print('wp')
 			return 'wp'
 		else:
 			print('Looks good')

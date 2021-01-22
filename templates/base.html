@@ -69,7 +69,13 @@
     <div class="container">
         <div class='row'>
            <div class="col-10">
-              {% block upper %}{% endblock %}
+              {% block upper %}
+                {% if user == 'Login' %}
+                  <script>
+                    document.getElementById("logout").style.display = "none";
+                  </script>
+                {% endif %}
+              {% endblock %}
             </div>
         </div>
             
