@@ -129,6 +129,7 @@ def chatroom():
 
 @socketio.on('chat message')
 def handle_message(data):
+	print(data)
 	socketio.emit('chat message', data)
 
 

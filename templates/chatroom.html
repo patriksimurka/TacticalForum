@@ -27,7 +27,6 @@
 	e.preventDefault();
 	if (input.value) {
 	  socket.emit('chat message', nickname +': '+input.value);
-	  console.log(input.value);
 	  input.value = '';
 	}
 	});
@@ -38,11 +37,10 @@
 		messages.appendChild(item);
 	});
 
-	$(document).ready(function(){
-	    socket.on('connect', function() {
-	        socket.emit('chat message', {data: nickname+' connected.'});
-	    });
-	});
+    socket.on('connect', function() {
+        socket.emit('chat message', nickname+' connected.');
+    });
+
     
 </script>
 
