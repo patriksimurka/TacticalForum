@@ -129,10 +129,11 @@ def chatroom():
 
 @socketio.on('chat message')
 def handle_message(data):
-	print(data)
 	socketio.emit('chat message', data)
 
-
+@socketio.on('broadcast')
+def handle_message(data):
+	socketio.emit('chat message', data, broadcast=True, include_self=False)
 
 if __name__ == "__main__":
 	socketio.run(app)

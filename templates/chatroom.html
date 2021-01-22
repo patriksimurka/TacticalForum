@@ -13,7 +13,7 @@
 {% block scripts %}
 <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"></script>
 <script type="text/javascript" charset="utf-8">
-	var socket = io()
+	var socket = io();
 	{% if user == 'Login' %}
 		var nickname = prompt("Please enter your name", "Anonymous");
 	{% else %}
@@ -37,11 +37,15 @@
 		messages.appendChild(item);
 	});
 
+
     socket.on('connect', function() {
-        socket.emit('chat message', nickname+' connected.');
+        socket.emit('broadcast', nickname+' connected.');
     });
 
-    
+    window.onbeforeunload = function () {
+        socket.emit('broadcast',nickname+' disconnected.');
+    };
+
 </script>
 
 {% endblock %}
