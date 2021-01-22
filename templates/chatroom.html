@@ -2,14 +2,40 @@
 {% block title %}Chatroom{% endblock %}
 
 {% block content %}
-<textarea cols="40", rows="1" style='display:block;margin:auto'></textarea>
+<div style="display:block;text-align:center;">
+<ul id="messages"></ul>
+    <form id="form" action="">
+      <input id="input" autocomplete="off"/><button>Send</button>
+    </form>
+</div>
 {% endblock %}
 
 {% block scripts %}
 <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"></script>
 <script type="text/javascript" charset="utf-8">
+
+	var socket = io()
+	var nickname = prompt("Please enter your name", "Anonymous");
+	var messages = document.getElementById('messages');
+	var form = document.getElementById('form');
+	var input = document.getElementById('input');
+
+	form.addEventListener('submit', function(e) {
+	e.preventDefault();
+	if (input.value) {
+	  socket.emit('chat message', nickname +': '+input.value);
+	  console.log(input.value);
+	  input.value = '';
+	}
+	});
+
+	socket.on('chat message', function(msg) {
+		var item = document.createElement('li');
+		item.textContent = msg;
+		messages.appendChild(item);
+	});
+
 	$(document).ready(function(){
-	    var socket = io()
 	    socket.on('connect', function() {
 	    	console.log('connected')
 	        socket.emit('message', {data: 'I\'m connected!'});

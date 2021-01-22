@@ -117,9 +117,9 @@ def chatroom():
 	return render_template('chatroom.html')
 
 
-@socketio.on('message')
+@socketio.on('chat message')
 def handle_message(data):
-	print('received message: ' + data['data'])
+	socketio.emit('chat message', data)
 
 
 if __name__ == "__main__":
