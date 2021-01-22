@@ -1,13 +1,15 @@
-
 if ( window.history.replaceState ) {
           window.history.replaceState( null, null, window.location.href );
 }
 
 setTimeout(function(){
-for (var i=0; i<m.length; i++) {
-  m[i].classList.add('hide');
-  }
+	for (el of [m, n]){
+		for (var i=0; i<el.length; i++) {
+		  el[i].classList.add('hide');
+		}
+	}
 }, 5000);
+
 
 function set_active(){
 	if (window.location.href.endsWith('#')) {

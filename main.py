@@ -46,11 +46,6 @@ def user():
 		return redirect(url_for('login'))
 
 
-@app.route("/admin")
-def admin():
-	return redirect(url_for("user", name='Admin!'))
-
-
 @app.route("/login", methods=["POST", "GET"])
 def login():
 	user = 'Login'
