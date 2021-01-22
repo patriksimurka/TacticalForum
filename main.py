@@ -4,6 +4,7 @@ import btc
 import requests
 import json
 from flask_socketio import SocketIO
+import threading
 
 
 app = Flask(__name__)
@@ -129,7 +130,7 @@ def chatroom():
 
 @socketio.on('chat message')
 def handle_message(data):
-	socketio.emit('chat message', data)
+	socketio.emit('chat message', data['data'])
 
 @socketio.on('broadcast')
 def handle_message(data):
@@ -137,3 +138,6 @@ def handle_message(data):
 
 if __name__ == "__main__":
 	socketio.run(app)
+
+
+threading.Thread(target=get_price).start()
