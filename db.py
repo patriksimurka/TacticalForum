@@ -53,7 +53,7 @@ def load_feed():
 	conn = sqlite3.connect('db.sqlite')
 	cur = conn.cursor()
 	cur.execute('CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY, username VARCHAR, dt TEXT, content TEXT, likes integer)')
-	cur.execute("SELECT username, dt, content FROM posts WHERE 1=1")
+	cur.execute("SELECT username, dt, content, likes, id FROM posts WHERE 1=1")
 	data = cur.fetchall()
 	conn.close()
 	print(data)
