@@ -43,8 +43,8 @@ def register(username, password):
 def post(username, content=''):
 	conn = sqlite3.connect('db.sqlite')
 	cur = conn.cursor()
-	cur.execute('CREATE TABLE IF NOT EXISTS posts (username VARCHAR, dt TEXT, content TEXT)')
-	cur.execute('INSERT INTO posts (username, dt, content) values (?, ?, ?)', (username, datetime.datetime.now(), content))
+	cur.execute('CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY, username VARCHAR, dt TEXT, content TEXT, likes integer)')
+	cur.execute('INSERT INTO posts (username, dt, content, likes) values (?, ?, ?, ?)', (username, datetime.datetime.now(), content, 0))
 	conn.commit()
 	conn.close()
 
@@ -52,7 +52,7 @@ def post(username, content=''):
 def load_feed():
 	conn = sqlite3.connect('db.sqlite')
 	cur = conn.cursor()
-	cur.execute('CREATE TABLE IF NOT EXISTS posts (username VARCHAR, dt TEXT, content TEXT)')
+	cur.execute('CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY, username VARCHAR, dt TEXT, content TEXT, likes integer)')
 	cur.execute("SELECT username, dt, content FROM posts WHERE 1=1")
 	data = cur.fetchall()
 	conn.close()
