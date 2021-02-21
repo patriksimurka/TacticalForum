@@ -133,8 +133,7 @@ def handle_message(data):
 
 @app.route('/add_like/<id>')
 def add_like(id):
-	db.add_like(id)
-	return 'ok'
+	return db.add_like(id)
 
 if __name__ == "__main__":
 	socketio.run(app)

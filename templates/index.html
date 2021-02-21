@@ -45,7 +45,9 @@
 {% block scripts%}
 <script type="text/javascript">
 $("button").click(function() {
-	$.get(/add_like/+this.id) 
+	$.get(/add_like/+this.id, function(data) {
+		console.log(data);
+	}) 
 });
 </script>
 {% endblock %}

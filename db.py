@@ -60,17 +60,11 @@ def load_feed():
 	return data
 
 def add_like(idcko):
-	print()
-	print()
-	print()
-	print()
-	print(idcko)
-	print()
-	print()
-	print()
-	print()
 	conn = sqlite3.connect('db.sqlite')
 	cur = conn.cursor()
 	cur.execute('UPDATE posts SET likes = likes + 1 WHERE id = ?', (idcko))
 	conn.commit()
+	cur.execute("SELECT likes FROM posts WHERE id=?", (idcko))
+	data = cur.fetchall()
 	conn.close()
+	return str(data[0][0])
