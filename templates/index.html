@@ -47,9 +47,8 @@
 $("button").click(function() {
 	var idcko = this.id;
 	$.get(/add_like/+this.id, function(data) {
-		let c = 'i#'+idcko;
-		console.log($(c).text);
-		$(c).text = data;
+		let c = document.getElementById(idcko)
+		c.innerHTML = data+' likes';
 	}) 
 });
 </script>
