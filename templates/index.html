@@ -46,6 +46,7 @@
 <script type="text/javascript">
 $("button").click(function() {
 	var idcko = this.id;
+	this.style.color = 'blue';
 	$.get(/add_like/+this.id, function(data) {
 		let c = document.getElementById(idcko)
 		c.innerHTML = data+' likes';
