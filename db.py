@@ -1,5 +1,6 @@
 import sqlite3
 import datetime
+import json
 
 def login(username, password):
 
@@ -44,7 +45,7 @@ def post(username, content=''):
 	conn = sqlite3.connect('db.sqlite')
 	cur = conn.cursor()
 	cur.execute('CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY, username VARCHAR, dt TEXT, content TEXT, likes integer, liking TEXT)')
-	cur.execute('INSERT INTO posts (username, dt, content, likes, liking) values (?, ?, ?, ?, ?)', (username, datetime.datetime.now(), content, 0, ''))
+	cur.execute('INSERT INTO posts (username, dt, content, likes, liking) values (?, ?, ?, ?, ?)', (username, datetime.datetime.now(), content, 0, '{"usernames": []}'))
 	conn.commit()
 	conn.close()
 
@@ -59,14 +60,21 @@ def load_feed():
 	print(data)
 	return data
 
-def add_like(idcko):
-	print()
-	print(idcko)
-	print()
+def add_like(idcko, username):
 	conn = sqlite3.connect('db.sqlite')
 	cur = conn.cursor()
-	cur.execute('UPDATE posts SET likes = likes + 1 WHERE id = ?', (idcko))
-	conn.commit()
+	cur.execute("SELECT liking FROM posts WHERE id=?", (idcko))
+	arr = cur.fetchall()[0][0]
+	#print(arr)
+	liking = json.loads(arr)
+	#print(liking)
+	
+	if username not in liking['usernames']:
+		cur.execute('UPDATE posts SET likes = likes + 1 WHERE id = ?', (idcko))
+		liking['usernames'].append(username)
+		print(liking)
+		cur.execute('UPDATE posts SET liking = ? WHERE id = ?', (json.dumps(liking), idcko))
+		conn.commit()
 	cur.execute("SELECT likes FROM posts WHERE id=?", (idcko))
 	data = cur.fetchall()
 	conn.close()

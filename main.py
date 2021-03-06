@@ -131,9 +131,9 @@ def handle_message(data):
 def handle_message(data):
 	socketio.emit('chat message', data, broadcast=True, include_self=False)
 
-@app.route('/add_like/<id>')
-def add_like(id):
-	return db.add_like(id)
+@app.route('/add_like/<id>/<username>')
+def add_like(id, username):
+	return db.add_like(id, username)
 
 if __name__ == "__main__":
 	socketio.run(app)
