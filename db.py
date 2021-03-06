@@ -65,17 +65,21 @@ def add_like(idcko, username):
 	cur = conn.cursor()
 	cur.execute("SELECT liking FROM posts WHERE id=?", (idcko))
 	arr = cur.fetchall()[0][0]
-	#print(arr)
 	liking = json.loads(arr)
-	#print(liking)
 	
 	if username not in liking['usernames']:
 		cur.execute('UPDATE posts SET likes = likes + 1 WHERE id = ?', (idcko))
 		liking['usernames'].append(username)
-		print(liking)
 		cur.execute('UPDATE posts SET liking = ? WHERE id = ?', (json.dumps(liking), idcko))
-		conn.commit()
+		unlike = False
+	else:
+		cur.execute('UPDATE posts SET likes = likes - 1 WHERE id = ?', (idcko))
+		liking['usernames'].remove(username)
+		cur.execute('UPDATE posts SET liking = ? WHERE id = ?', (json.dumps(liking), idcko))
+		unlike = True
+
 	cur.execute("SELECT likes FROM posts WHERE id=?", (idcko))
+	conn.commit()
 	data = cur.fetchall()
 	conn.close()
-	return str(data[0][0])
+	return (data[0][0], unlike)
