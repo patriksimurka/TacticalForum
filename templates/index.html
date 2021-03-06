@@ -31,7 +31,7 @@
 		    	<p></p>
 		    	<i id={{i[0]}}>{{i[-2]}} likes</i>
 		    	<div>
-		    		<button id='{{i[0]}}'>Like</button>
+		    		<button id={{i[0]}}>Like</button>
 				</div>
 		    	<hr>
 		    </div>
@@ -45,13 +45,21 @@
 {% block scripts%}
 <script type="text/javascript">
 $("button").click(function() {
-	var idcko = this.id;
-	this.style.color = 'blue';
+	let idcko = this.id;
+	let btn = this
 	$.get(/add_like/+this.id+'/'+'{{ username }}', function(data) {
-		let c = document.getElementById(idcko);
-		c.innerHTML = data+' likes';
-	}) 
+		let lajky = document.getElementById(idcko);
+		data = data.split(' ')
+		lajky.innerHTML = data[0]+' likes';
+		let unlike = data[1];
+		if (unlike === 'true') {
+			btn.style.color = 'black';
+		} else {
+			btn.style.color = 'blue';
+		};
+	}); 
 });
+
 </script>
 {% endblock %}
 

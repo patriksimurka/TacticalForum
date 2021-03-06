@@ -71,15 +71,15 @@ def add_like(idcko, username):
 		cur.execute('UPDATE posts SET likes = likes + 1 WHERE id = ?', (idcko))
 		liking['usernames'].append(username)
 		cur.execute('UPDATE posts SET liking = ? WHERE id = ?', (json.dumps(liking), idcko))
-		unlike = False
+		unlike = 'false'
 	else:
 		cur.execute('UPDATE posts SET likes = likes - 1 WHERE id = ?', (idcko))
 		liking['usernames'].remove(username)
 		cur.execute('UPDATE posts SET liking = ? WHERE id = ?', (json.dumps(liking), idcko))
-		unlike = True
+		unlike = 'true'
 
 	cur.execute("SELECT likes FROM posts WHERE id=?", (idcko))
 	conn.commit()
 	data = cur.fetchall()
 	conn.close()
-	return (data[0][0], unlike)
+	return str(data[0][0]) +' '+ unlike
