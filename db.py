@@ -43,8 +43,8 @@ def register(username, password):
 def post(username, content=''):
 	conn = sqlite3.connect('db.sqlite')
 	cur = conn.cursor()
-	cur.execute('CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY, username VARCHAR, dt TEXT, content TEXT, likes integer)')
-	cur.execute('INSERT INTO posts (username, dt, content, likes) values (?, ?, ?, ?)', (username, datetime.datetime.now(), content, 0))
+	cur.execute('CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY, username VARCHAR, dt TEXT, content TEXT, likes integer, liking TEXT)')
+	cur.execute('INSERT INTO posts (username, dt, content, likes, liking) values (?, ?, ?, ?, ?)', (username, datetime.datetime.now(), content, 0, ''))
 	conn.commit()
 	conn.close()
 
@@ -52,14 +52,17 @@ def post(username, content=''):
 def load_feed():
 	conn = sqlite3.connect('db.sqlite')
 	cur = conn.cursor()
-	cur.execute('CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY, username VARCHAR, dt TEXT, content TEXT, likes integer)')
-	cur.execute("SELECT username, dt, content, likes, id FROM posts WHERE 1=1")
+	cur.execute('CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY, username VARCHAR, dt TEXT, content TEXT, likes integer, liking TEXT)')
+	cur.execute("SELECT id, username, dt, content, likes, liking FROM posts WHERE 1=1")
 	data = cur.fetchall()
 	conn.close()
 	print(data)
 	return data
 
 def add_like(idcko):
+	print()
+	print(idcko)
+	print()
 	conn = sqlite3.connect('db.sqlite')
 	cur = conn.cursor()
 	cur.execute('UPDATE posts SET likes = likes + 1 WHERE id = ?', (idcko))
