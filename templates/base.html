@@ -95,17 +95,18 @@
     {% block scripts %}{% endblock%}
 
     <script type=text/javascript>
+        get_btc('XBT');
         set_active();
 
-        // function get_btc(which) {
-        //     $.getJSON('/btc_price/'+which,
-        //         function(data) {
-        //           document.getElementById('btc').text = data[0]+'('+data[1]+')';
-        //     });
-        //     return true;
-        //   };
+        function get_btc(which) {
+            $.getJSON('/btc_price/'+which,
+                function(data) {
+                  document.getElementById('btc').text = data[0]+'('+data[1]+')';
+            });
+            return true;
+          };
 
-        // //setInterval(function() { get_btc('XBT'); }, 200);
+        setInterval(function() { get_btc('XBT'); }, 60000);
 
     </script>
 
