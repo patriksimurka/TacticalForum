@@ -31,7 +31,11 @@
 		    	<p></p>
 		    	<i id={{i[0]}}>{{i[-2]}} likes</i>
 		    	<div>
-		    		<button id={{i[0]}}>Like</button>
+		    		{% if username in posts[0][-1]['usernames'] %}
+		    			<button style='color:blue' id={{i[0]}}>Like</button>
+		    		{% else %}
+		    			<button id={{i[0]}}>Like</button>
+		    		{% endif %}
 				</div>
 		    	<hr>
 		    </div>

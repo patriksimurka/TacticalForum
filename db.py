@@ -56,8 +56,13 @@ def load_feed():
 	cur.execute('CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY, username VARCHAR, dt TEXT, content TEXT, likes integer, liking TEXT)')
 	cur.execute("SELECT id, username, dt, content, likes, liking FROM posts WHERE 1=1")
 	data = cur.fetchall()
-	conn.close()
+	data = data[0]
+	data = list(data)
 	print(data)
+	data[-1] = json.loads(data[-1])
+	data = tuple(data)
+	data = [data]
+	conn.close()
 	return data
 
 def add_like(idcko, username):
@@ -66,10 +71,7 @@ def add_like(idcko, username):
 	cur.execute("SELECT liking FROM posts WHERE id=?", (idcko))
 	arr = cur.fetchall()[0][0]
 	liking = json.loads(arr)
-	print()
-	print(liking)
-	print()
-	
+		
 	if username not in liking['usernames']:
 		cur.execute('UPDATE posts SET likes = likes + 1 WHERE id = ?', (idcko))
 		liking['usernames'].append(username)
