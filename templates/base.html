@@ -97,15 +97,15 @@
     <script type=text/javascript>
         set_active();
 
-        function get_btc(which) {
-            $.getJSON('/btc_price/'+which,
-                function(data) {
-                  document.getElementById('btc').text = data[0]+'('+data[1]+')';
-            });
-            return true;
-          };
+        // function get_btc(which) {
+        //     $.getJSON('/btc_price/'+which,
+        //         function(data) {
+        //           document.getElementById('btc').text = data[0]+'('+data[1]+')';
+        //     });
+        //     return true;
+        //   };
 
-        //setInterval(function() { get_btc('XBT'); }, 200);
+        // //setInterval(function() { get_btc('XBT'); }, 200);
 
     </script>
 
