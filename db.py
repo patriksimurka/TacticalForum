@@ -66,6 +66,9 @@ def add_like(idcko, username):
 	cur.execute("SELECT liking FROM posts WHERE id=?", (idcko))
 	arr = cur.fetchall()[0][0]
 	liking = json.loads(arr)
+	print()
+	print(liking)
+	print()
 	
 	if username not in liking['usernames']:
 		cur.execute('UPDATE posts SET likes = likes + 1 WHERE id = ?', (idcko))
